@@ -1,0 +1,35 @@
+{
+  "paybill": [
+    {
+      "id": "5ef9",
+      "businessNumber": "42225",
+      "accountNumber": "2323",
+      "businessName": "Jamal's Butchery"
+    },
+    {
+      "id": "23a1",
+      "businessNumber": "888880",
+      "accountNumber": "3723888900288123",
+      "businessName": "Kenya Power"
+    },
+    {
+      "id": "6f0d",
+      "businessNumber": "888880",
+      "accountNumber": "3723888900288123",
+      "businessName": "Kenya Power"
+    },
+    {
+      "id": "11e9",
+      "businessNumber": "34457",
+      "accountNumber": "247247",
+      "businessName": "Equity"
+    },
+    {
+      "id": "d0be",
+      "businessNumber": "67902",
+      "accountNumber": "223346",
+      "businessName": "Vivo hardware"
+    }
+  ],
+  "payments": []
+}
