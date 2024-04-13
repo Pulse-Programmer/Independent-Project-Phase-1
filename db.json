@@ -31,5 +31,42 @@
       "businessName": "Vivo hardware"
     }
   ],
-  "payments": []
+  "payments": [
+    {
+      "id": "3dce",
+      "businessNumber": "32345",
+      "accountNumber": "235647",
+      "amountPaid": 500
+    },
+    {
+      "id": "37b0",
+      "businessNumber": "32345",
+      "accountNumber": "674443",
+      "amountPaid": 800
+    },
+    {
+      "id": "eb22",
+      "businessNumber": "45435Er",
+      "accountNumber": "1",
+      "amountPaid": 1000
+    },
+    {
+      "id": "3b3a",
+      "businessNumber": "88890",
+      "accountNumber": "KCB",
+      "amountPaid": 750
+    },
+    {
+      "id": "4f13",
+      "businessNumber": "9996677",
+      "accountNumber": "Betika",
+      "amountPaid": 300
+    },
+    {
+      "id": "115c",
+      "businessNumber": "9223444",
+      "accountNumber": "KCB",
+      "amountPaid": 300
+    }
+  ]
 }
