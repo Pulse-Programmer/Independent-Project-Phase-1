@@ -49,21 +49,29 @@
               <input
                 type="text"
                 id="business_num"
+                class="d-block mb-2"
                 placeholder="Enter business number"
+                required
               />
               <label for="account_num">Account Number</label>
               <input
                 type="text"
                 id="account_num"
+                class="d-block mb-2"
+                name="account_num"
                 placeholder="Enter account number"
+                required
               />
               <label for="business_name">Name of Business</label>
               <input
                 type="text"
                 id="business_name"
+                class="d-block mb-2"
+                name="business_name"
                 placeholder="Enter business name"
+                required
               />
-              <button type="submit">Save</button>
+              <button type="submit" class="btn-success rounded">Save</button>
             </form>
           </div>
 
@@ -101,7 +109,7 @@
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Save New Paybill</h4>
+            <h4 class="modal-title">Make Payment</h4>
             <button
               type="button"
               class="btn-close"
@@ -115,14 +123,28 @@
               <label for="business_numPay">Business Number</label>
               <input
                 type="text"
-                id="business_num"
+                id="business_numPay"
                 placeholder="Enter business number"
+                name="business_numPay"
+                required
               />
+
               <label for="account_numPay">Account Number</label>
               <input
                 type="text"
-                id="account_num"
+                id="account_numPay"
                 placeholder="Enter account number"
+                name="account_numPay"
+                required
+              />
+
+              <label for="amount">Amount</label>
+              <input
+                type="text"
+                id="amount"
+                placeholder="Enter amount"
+                name="amount"
+                required
               />
 
               <button type="submit">PAY</button>
@@ -145,6 +167,7 @@
 
     <div class="container mt-5" id="history">
       <h3><i>Transactions history</i></h3>
+      <ul id="historyItems"></ul>
     </div>
     <script src="./js/app.js"></script>
   </body>
