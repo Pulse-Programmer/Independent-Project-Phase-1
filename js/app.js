@@ -2,7 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const businessForm = document.querySelector("#business_form");
   const payForm = document.querySelector("#pay_form");
   const history = document.querySelector("#historyItems");
+  const carouselContainer = document.querySelector(".carousel-inner");
+  const carouselIndicators = document.querySelector(".carousel-indicators");
   const dbUrl = "http://localhost:3000";
+  let i = 0;
+
+  fetchCarousel();
 
   businessForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -65,6 +70,31 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         history.appendChild(li);
+      })
+      .catch((error) => alert(error.message));
+  }
+
+  //GET data carousel function
+  function fetchCarousel() {
+    fetch(`${dbUrl}/paybill`)
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((record) => {
+          const divItem = document.createElement("div");
+          const carouselBtn = document.createElement("button");
+          divItem.classList.add("carousel-item");
+          divItem.innerHTML = `
+          <h5><span class="badge bg-dark">${record.businessName}</span></h5>
+          <p><span class="badge bg-dark">${record.businessNumber}</span></p>
+          `;
+
+          carouselBtn.setAttribute("type", "button");
+          carouselBtn.setAttribute("data-bs-target", "#demo");
+          carouselBtn.setAttribute("data-bs-slide-to", `${(i += 1)}`);
+
+          carouselIndicators.appendChild(carouselBtn);
+          carouselContainer.appendChild(divItem);
+        });
       })
       .catch((error) => alert(error.message));
   }
