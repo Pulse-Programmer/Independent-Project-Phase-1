@@ -13,7 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const dbUrl = "http://localhost:3000";
   let i = 0;
 
+  //Extracts carousel items for the slide
   fetchCarousel();
+
+  //Extracts transaction history
+  handleHistory();
 
   //search box functionality called on business number input element of payForm
   payBusinessInput.addEventListener("input", () => {
@@ -47,41 +51,36 @@ document.addEventListener("DOMContentLoaded", () => {
       // Extract the business number and account number from the clicked item
       const clickedBusinessName = e.target.firstElementChild.textContent;
 
-      fetch(`${dbUrl}/paybill`)
-        .then((res) => res.json())
-        .then((data) => {
-          data.forEach((record) => {
-            if (clickedBusinessName === record.businessName) {
-              // Autofill the input fields in the payForm
-              payBusinessInput.value = record.businessNumber;
-              document.querySelector("#account_numPay").value =
-                record.accountNumber;
+      getPaybill().then((data) => {
+        data.forEach((record) => {
+          if (clickedBusinessName === record.businessName) {
+            // Autofill the input fields in the payForm
+            payBusinessInput.value = record.businessNumber;
+            document.querySelector("#account_numPay").value =
+              record.accountNumber;
 
-              //Trigger the modal to open
-              const modal = new bootstrap.Modal(
-                document.getElementById("payModal")
-              );
-              modal.show();
-            }
-          });
+            //Trigger the modal to open
+            const modal = new bootstrap.Modal(
+              document.getElementById("payModal")
+            );
+            modal.show();
+          }
         });
+      });
     }
   });
 
   //Handles the delete functionality
   deleteButton.addEventListener("click", (e) => {
     let businessVal = e.target.parentNode.business_numPay.value;
-    fetch(`${dbUrl}/paybill`)
-      .then((res) => res.json())
-      .then((data) => {
-        let found = data.find(
-          (record) => businessVal === record.businessNumber
-        );
 
-        if (found) {
-          handleDelete(found.id);
-        }
-      });
+    getPaybill().then((data) => {
+      let found = data.find((record) => businessVal === record.businessNumber);
+
+      if (found) {
+        handleDelete(found.id);
+      }
+    });
 
     handleDelete();
   });
@@ -116,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         businessNumber: businessNum,
         accountNumber: accountNum,
         amountPaid: amount,
+        date: new Date(),
       }),
     })
       .then((res) => res.json())
@@ -143,15 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //GET data carousel function
   function fetchCarousel() {
-    fetch(`${dbUrl}/paybill`)
-      .then((res) => res.json())
+    getPaybill()
       .then((data) => {
         data.forEach((record) => {
           const divItem = document.createElement("div");
           const carouselBtn = document.createElement("button");
           divItem.classList.add("carousel-item");
           divItem.innerHTML = `
-          <h5><span class="badge bg-dark">${record.businessName}</span></h5>
+          <h5><span class="badge bg-light text-dark">${record.businessName}</span></h5>
           <p><span class="badge bg-dark">${record.businessNumber}</span></p>
           `;
 
@@ -200,8 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const payBusinessValue = payBusinessInput.value.toUpperCase(); // Get the value of the input and convert it to uppercase
     const payAccountNum = document.querySelector("#account_numPay"); //Select the account number input element in payForm
 
-    fetch(`${dbUrl}/paybill`)
-      .then((res) => res.json())
+    getPaybill()
       .then((data) => {
         let matchFound = false; // Variable to track if a match is found
         for (let i = 0; i < data.length; i++) {
@@ -229,5 +227,42 @@ document.addEventListener("DOMContentLoaded", () => {
         "Content-Type": "application/json",
       },
     });
+  }
+
+  //Function for handling transactions history
+  function handleHistory() {
+    getPayments()
+      .then((data) => {
+        data.forEach((record) => {
+          const historyLi = document.createElement("li");
+
+          historyLi.innerHTML = `
+          <p>Business Number: <span>${record.businessNumber}</span></p>
+          <p>Account Number: <span>${record.accountNumber}</span></p>
+          <p>Amount: <span>${record.amountPaid}</span></p>
+          <p>Date: <span>${record.date}</span></p>
+          <hr>
+          `;
+
+          if (history.childElementCount < 10) {
+            history.appendChild(historyLi);
+          } else {
+            history.removeChild(history.lastChild);
+            history.appendChild(historyLi);
+          }
+        });
+      })
+      .catch((error) => alert(error.message));
+  }
+
+  //Get request function on payments resource
+  function getPayments() {
+    return fetch(`${dbUrl}/payments`).then((res) => res.json());
+    //   .then((data) => data);
+  }
+
+  //Get request function on paybill resource
+  function getPaybill() {
+    return fetch(`${dbUrl}/paybill`).then((res) => res.json());
   }
 });
