@@ -15,7 +15,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="row mx-auto mb-4 mt-4">
+      <div class="row mx-auto mb-5 mt-4">
         <div id="demo" class="carousel slide" data-bs-ride="carousel">
           <!-- Indicators/dots -->
           <div class="carousel-indicators mb-0">
@@ -30,12 +30,13 @@
           <!-- The slideshow/carousel -->
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img
-                src="./images/Gradient Geometric  App.jpeg"
-                alt="Los Angeles"
-                style="width: 100%; height: 75px"
-                class="d-block img-thumbnail img-fluid"
-              />
+              <div class="img-container">
+                <img
+                  src="./images/amazing green leaves.jpeg"
+                  alt="Wallpaper"
+                  class="d-block img-thumbnail img-fluid"
+                />
+              </div>
             </div>
           </div>
 
@@ -58,21 +59,25 @@
           </button>
         </div>
       </div>
-      <div class="row">
-        <div class="col-10 mt-5 d-flex flex-column border p-4 rounded-3">
-          <h3 class="mx-auto">
-            <span class="badge bg-dark">Save New Paybill</span>
-          </h3>
-          <p class="mx-auto">Click on the button to open save dialog</p>
-
-          <button
-            type="button"
-            class="btn btn-success"
-            data-bs-toggle="modal"
-            data-bs-target="#bizModal"
-          >
-            SAVE
-          </button>
+      <div class="row mt-4">
+        <div class="col-12 col-md-6 mb-4">
+          <!-- Save New Paybill Section -->
+          <div class="card border border-end-0 border-start-0 border-warning">
+            <div class="card-header bg-dark text-light">
+              <h5 class="card-title mb-0">Save New Paybill</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Click on the button to open save dialog</p>
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#bizModal"
+              >
+                SAVE
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- The Modal -->
@@ -138,20 +143,24 @@
           </div>
         </div>
 
-        <div class="col-5 mt-5 d-flex flex-column border p-4 rounded-3">
-          <h3 class="mx-auto">
-            <span class="badge bg-dark">Make Payment</span>
-          </h3>
-          <p>Click on the button to make payment</p>
-
-          <button
-            type="button"
-            class="btn btn-danger"
-            data-bs-toggle="modal"
-            data-bs-target="#payModal"
-          >
-            PAY
-          </button>
+        <div class="col-12 col-md-6 mb-4">
+          <!-- Make Payment Section -->
+          <div class="card border border-end-0 border-start-0 border-warning">
+            <div class="card-header bg-dark text-light">
+              <h5 class="card-title mb-0">Make Payment</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Click on the button to make payment</p>
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#payModal"
+              >
+                PAY
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- The Modal -->
@@ -226,9 +235,22 @@
           </div>
         </div>
 
-        <div class="col-5 mt-5 mx-auto border-start rounded-3" id="history">
-          <h3><i>Transactions</i></h3>
-          <ul id="historyItems"></ul>
+        <!-- Transaction History Section -->
+        <div class="row">
+          <div class="col-12 col-md-6 mb-4">
+            <div
+              class="card border-bottom-0 border-start-0 border-warning border-end-0 border-top rounded-3"
+            >
+              <div class="card-header bg-dark text-light">
+                <h5 class="card-title mb-0">Transaction History</h5>
+              </div>
+              <div class="card-body scroll">
+                <ul id="historyItems" class="list-group">
+                  <!-- Transaction history items will be dynamically added here -->
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="auto-close alert alert-success invisible" role="alert">
