@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const alertContainer = document.querySelector(".alert");
   const alertUl = document.querySelector("#alert_ul");
   const payBusinessInput = document.querySelector("#business_numPay");
+  //const carouselRow = document.querySelector("#carouselRow");
 
   const dbUrl = "http://localhost:3000";
   let i = 0;
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     paySearchBox();
   });
 
+  //Handles submission of paybill form details to be saved on the server/database
   businessForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let businessNumInput = e.target.business_num.value;
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     handlePaybillPost(businessNumInput, accountNumInput, businessName);
   });
 
+  //Handles submission of payment form details to be saved on the server/database
   payForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const businessPayInput = e.target.business_numPay.value;
@@ -37,7 +40,35 @@ document.addEventListener("DOMContentLoaded", () => {
     handlePaymentPost(businessPayInput, accountPayInput, payAmount);
   });
 
-  //POST function
+  //Handles the form autofilling of clicked slide item details
+  carouselContainer.addEventListener("click", (e) => {
+    // Check if the clicked element is a carousel item
+    if (e.target.classList.contains("carousel-item")) {
+      // Extract the business number and account number from the clicked item
+      const clickedBusinessName = e.target.firstElementChild.textContent;
+
+      fetch(`${dbUrl}/paybill`)
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach((record) => {
+            if (clickedBusinessName === record.businessName) {
+              // Autofill the input fields in the payForm
+              payBusinessInput.value = record.businessNumber;
+              document.querySelector("#account_numPay").value =
+                record.accountNumber;
+
+              //Trigger the modal to open
+              const modal = new bootstrap.Modal(
+                document.getElementById("payModal")
+              );
+              modal.show();
+            }
+          });
+        });
+    }
+  });
+
+  //POST function for handling paybill and save details to server
   function handlePaybillPost(businessNum, accountNum, name) {
     fetch(`${dbUrl}/paybill`, {
       method: "POST",
@@ -55,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => alert(error.message));
   }
 
+  //Function for handling posting of payment details to server
   function handlePaymentPost(businessNum, accountNum, amount) {
     fetch(`${dbUrl}/payments`, {
       method: "POST",
@@ -86,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
           autoCloseElements.forEach(function (element) {
             fadeAndSlide(element);
           });
-        }, 3000);
+        }, 5000);
       })
       .catch((error) => alert(error.message));
   }
@@ -116,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => alert(error.message));
   }
 
-  // Define a function to handle the fading and sliding animation
+  // Define a function to handle the fading and sliding animation of alert card
   function fadeAndSlide(element) {
     const fadeDuration = 500;
     const slideDuration = 500;
@@ -145,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, fadeDuration / 10);
   }
 
+  //function to handle character search of details already saved in the database
   function paySearchBox() {
     const payBusinessValue = payBusinessInput.value.toUpperCase(); // Get the value of the input and convert it to uppercase
     const payAccountNum = document.querySelector("#account_numPay"); //Select the account number input element in payForm
