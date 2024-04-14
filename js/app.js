@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const alertContainer = document.querySelector(".alert");
   const alertUl = document.querySelector("#alert_ul");
   const payBusinessInput = document.querySelector("#business_numPay");
-  //const carouselRow = document.querySelector("#carouselRow");
+  const deleteButton = document.querySelector("#deleteBtn");
 
   const dbUrl = "http://localhost:3000";
   let i = 0;
@@ -66,6 +66,24 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         });
     }
+  });
+
+  //Handles the delete functionality
+  deleteButton.addEventListener("click", (e) => {
+    let businessVal = e.target.parentNode.business_numPay.value;
+    fetch(`${dbUrl}/paybill`)
+      .then((res) => res.json())
+      .then((data) => {
+        let found = data.find(
+          (record) => businessVal === record.businessNumber
+        );
+
+        if (found) {
+          handleDelete(found.id);
+        }
+      });
+
+    handleDelete();
   });
 
   //POST function for handling paybill and save details to server
@@ -201,5 +219,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch((error) => alert(error.message));
+  }
+
+  //Function for delete request
+  function handleDelete(paybillId) {
+    fetch(`${dbUrl}/paybill/${paybillId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 });
