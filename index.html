@@ -118,7 +118,7 @@
                     placeholder="Enter business name"
                     required
                   />
-                  <button type="submit" class="btn-success rounded">
+                  <button type="submit" class="btn btn-success rounded">
                     SAVE
                   </button>
                 </form>
@@ -128,7 +128,7 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-secondary badge"
                   data-bs-dismiss="modal"
                 >
                   Close
@@ -201,7 +201,14 @@
                     required
                   />
 
-                  <button type="submit">PAY</button>
+                  <button type="submit" class="btn btn-danger">PAY</button>
+                  <button
+                    type="button"
+                    id="deleteBtn"
+                    class="float-end btn btn-warning rounded"
+                  >
+                    DELETE
+                  </button>
                 </form>
               </div>
 
@@ -209,7 +216,7 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-secondary badge"
                   data-bs-dismiss="modal"
                 >
                   Close
