@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const payBusinessInput = document.querySelector("#business_numPay");
   const deleteButton = document.querySelector("#deleteBtn");
 
-  const dbUrl = "http://localhost:3000";
+  const dbUrl = "https://json-db-independentproject.onrender.com/";
   let i = 0;
 
   //Extracts carousel items for the slide
