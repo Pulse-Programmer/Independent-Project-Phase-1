@@ -1,3 +1,6 @@
+//Global variables
+let totAmount;
+
 document.addEventListener("DOMContentLoaded", () => {
   const businessForm = document.querySelector("#business_form");
   const payForm = document.querySelector("#pay_form");
@@ -9,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const alertUl = document.querySelector("#alert_ul");
   const payBusinessInput = document.querySelector("#business_numPay");
   const deleteButton = document.querySelector("#deleteBtn");
+  const monthlyTotal = document.querySelector("#total");
 
   const dbUrl = "https://json-db-independentproject.onrender.com/";
   let i = 0;
@@ -18,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Extracts transaction history
   handleHistory();
+
+  //Calculates monthly total amount spent
+  monthTotal();
 
   //search box functionality called on business number input element of payForm
   payBusinessInput.addEventListener("input", () => {
@@ -264,5 +271,26 @@ document.addEventListener("DOMContentLoaded", () => {
   //Get request function on paybill resource
   function getPaybill() {
     return fetch(`${dbUrl}/paybill`).then((res) => res.json());
+  }
+
+  function monthTotal() {
+    let month = new Date().getMonth() + 1; //Get current month
+    const p = document.createElement("p"); //Element container for the total content
+    p.classList.add("text-warning", "fs-4");
+
+    getPayments().then((data) => {
+      let filteredData = data.filter((record) => {
+        return new Date(record.date).getMonth() + 1 === month; //Filter records that match the month
+      });
+
+      //Adds the cumulative total
+      totAmount = filteredData.reduce(
+        (total, record) => total + record.amountPaid,
+        0
+      );
+
+      p.textContent = `Kes: ${totAmount}`;
+      monthlyTotal.appendChild(p);
+    });
   }
 });
