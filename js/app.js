@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteButton = document.querySelector("#deleteBtn");
   const monthlyTotal = document.querySelector("#total");
 
-  const dbUrl = "http://localhost:3000";
+  const dbUrl = "https://json-db-independentproject.onrender.com/";
   let i = 0;
 
   //Extracts carousel items for the slide
