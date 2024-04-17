@@ -35,6 +35,20 @@ Javascript
 Html
 CSS
 
+## Features
+
+Ability to save new paybill numbers.
+
+The sliding feature of saved paybill numbers allows for easy and faster access when needed.
+
+Ability to do a transaction from a saved number by clicking directly on the sliding saved paybill icons.
+
+Has a search feature on the pay input form where available account numbers autofill when business number is being entered.
+
+Ability to delete a paybill contact when needed.
+
+Able to get the monthly total amount transacted on the app.
+
 ## Support and contact details
 
 github.com/Pulse-Programmer
